@@ -30,6 +30,7 @@ public:
     
     
     
+    
     int gcd(int a,int b) { return (b>0)?gcd(b,a%b):a; }
     int abs(int a){ return a<0? -a:a;}
 };

@@ -33,6 +33,10 @@ public:
     void calculation();
     string answer();
     
+    
+    
+    
+    
 };
 
 #endif /* get_fraction_hpp */

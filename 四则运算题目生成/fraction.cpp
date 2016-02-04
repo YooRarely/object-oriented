@@ -29,9 +29,10 @@ void fraction::operator*=(fraction k){
 
 void fraction:: operator/=(fraction k)
 {
-    if (y<0) x=-x,y=-y;
+
     x*=k.y;
     y*=k.x;
+    if (y<0) x=-x,y=-y;
     int l=gcd(abs(x),y);
     x/=l; y/=l;
 }
@@ -54,12 +55,14 @@ fraction fraction:: change(int k){
 string fraction:: get_info(){
     char t[250];
     string ans;
-    sprintf(t, "%d" ,this->x);
-    ans=t;
-    if (y==1) return ans;
-    ans+=" / ";
-    sprintf(t, "%d" ,this->y);
-    ans+=t;
+    if (y==1) { sprintf(t, "%d",x); ans=t; return ans; }
+    if (x==y) { return "1"; }
+    if (x>y) {
+        sprintf(t, "%d'%d/%d",x/y,x%y,y); ans=t;
+    }
+    if (x<y){
+        sprintf(t, "%d/%d",x,y); ans=t;
+    }
     return ans;
 };
 
