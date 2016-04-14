@@ -128,8 +128,7 @@ public:
 
 class Calculate{
 private:
-    queue<string> Info;
-    
+    bool print;
     int tried (stack <char> &oper,stack <int> &important,stack <double> &count, int k){
         
         while ( ! important.empty() && k <= important.top()){
@@ -137,19 +136,29 @@ private:
             double amazing = count.top();
             count.pop();
             
+            
+            
             switch (oper.top()) {
                 case '+':
+                    if (print) cout<<count.top()<<"+"<<amazing;
                     count.top() += amazing;
+                    if (print) cout<<"="<<count.top()<<endl;
                     break;
                 case '-':
+                    if (print) cout<<count.top()<<"-"<<amazing;
                     count.top() -= amazing;
+                    if (print) cout<<"="<<count.top()<<endl;
                     break;
                 case '*':
+                    if (print) cout<<count.top()<<"*"<<amazing;
                     count.top() *= amazing;
+                    if (print) cout<<"="<<count.top()<<endl;
                     break;
                 case '/':
                     if (amazing == 0) { return -1;}
+                    if (print) cout<<count.top()<<"/"<<amazing;
                     count.top() /= amazing;
+                    if (print) cout<<"="<<count.top()<<endl;
                     break;
             }
             
@@ -175,12 +184,13 @@ public:
         return false;
     }
     
-    double getAns(queue<string> a){
+    double getAns(queue<string> a,bool p){
         
         stack <char> oper;
         stack <int> important;
         stack <double> count;
         int k=0;
+        print=p;
         
         while ( ! a.empty() ){
             
@@ -230,21 +240,47 @@ public:
 
 int main(int argc, const char * argv[]) {
     string input;
-    
-//    getline(cin,input);
-    if (argc<2) return 0;
-    
-    input=argv[1];
-    if (input=="-a") {
-        input=argv[2];
-        cout<<input<<"= ";
-    }
-    
+    bool p,a;
+    double ans;
+    int i;
     Scan scan;
     Print print;
-   // print.PrintStringQueue( scan.ToStringQueue(input) );
     Calculate Calculate;
     
-    cout<<Calculate.getAns( scan.ToStringQueue(input) );
+    p=false;
+    a=false;
+    i=1;
+    
+//    getline(cin,input);
+    
+    if (argc<2) return 0;
+    
+    input=argv[i];
+    
+    while (1){
+        
+        if (input=="-a") {
+            input=argv[++i];
+            a=true;
+            continue;
+        }
+        
+        if (input=="-s"){
+            input=argv[++i];
+            p=true;
+            continue;
+        }
+        
+        break;
+    }
+    
+
+// print.PrintStringQueue( scan.ToStringQueue(input) );
+    
+    
+    ans=Calculate.getAns( scan.ToStringQueue(input) , p);
+    
+    if (a) cout<<input<<"=";
+    cout<<ans<<endl;
     return 0;
 }
