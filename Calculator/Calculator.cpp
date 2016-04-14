@@ -265,7 +265,7 @@ int main(int argc, const char * argv[]) {
             continue;
         }
         
-        if (input=="-s"){
+        if (input=="-p"){
             input=argv[++i];
             p=true;
             continue;
